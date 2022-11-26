@@ -11,30 +11,46 @@ const Player = {
   },
 
   checkMovingCorrect(canWalkBridge, moving) {
-    if (canWalkBridge[movingCount] === moving) {
-      if (moving === GAME.LOWER_BRIDGE_STRING) {
-        this.bridgeState[0].push(GAME.CORRECT_BRIDGE);
-        this.bridgeState[1].push(GAME.EMPTY_BRIDGE);
-      }
+    if (canWalkBridge[this.movingCount] === moving) {
+      this.checkLowerCorrect(moving);
 
-      if (moving === GAME.UPPER_BRIDGE_STRING) {
-        this.bridgeState[0].push(GAME.EMPTY_BRIDGE);
-        this.bridgeState[1].push(GAME.CORRECT_BRIDGE);
-      }
+      this.checkUpperCorrect(moving);
+    }
+  },
+
+  checkLowerCorrect(moving) {
+    if (moving === GAME.LOWER_BRIDGE_STRING) {
+      this.bridgeState[0].push(GAME.CORRECT_BRIDGE);
+      this.bridgeState[1].push(GAME.EMPTY_BRIDGE);
+    }
+  },
+
+  checkUpperCorrect(moving) {
+    if (moving === GAME.UPPER_BRIDGE_STRING) {
+      this.bridgeState[0].push(GAME.EMPTY_BRIDGE);
+      this.bridgeState[1].push(GAME.CORRECT_BRIDGE);
     }
   },
 
   checkMovingWrong(canWalkBridge, moving) {
-    if (canWalkBridge[Player.movingCount] !== moving) {
-      if (moving === GAME.LOWER_BRIDGE_STRING) {
-        this.bridgeState[0].push(GAME.WRONG_BRIDGE);
-        this.bridgeState[1].push(GAME.EMPTY_BRIDGE);
-      }
+    if (canWalkBridge[this.movingCount] !== moving) {
+      this.checkLowerWrong(moving);
 
-      if (moving === GAME.UPPER_BRIDGE_STRING) {
-        this.bridgeState[0].push(GAME.EMPTY_BRIDGE);
-        this.bridgeState[1].push(GAME.WRONG_BRIDGE);
-      }
+      this.checkUpperWrong(moving);
+    }
+  },
+
+  checkLowerWrong(moving) {
+    if (moving === GAME.LOWER_BRIDGE_STRING) {
+      this.bridgeState[0].push(GAME.WRONG_BRIDGE);
+      this.bridgeState[1].push(GAME.EMPTY_BRIDGE);
+    }
+  },
+
+  checkUpperWrong(moving) {
+    if (moving === GAME.UPPER_BRIDGE_STRING) {
+      this.bridgeState[0].push(GAME.EMPTY_BRIDGE);
+      this.bridgeState[1].push(GAME.WRONG_BRIDGE);
     }
   },
 
