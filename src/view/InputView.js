@@ -7,6 +7,7 @@ const SizeValidation = require('../validation/SizeValidation');
 const BridgeMaker = require('../BridgeMaker');
 const generator = require('../BridgeRandomNumberGenerator').generate;
 const MovingValidation = require('../validation/MovingValidation');
+const BridgeGame = require('../BridgeGame');
 
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
@@ -23,17 +24,25 @@ const InputView = {
 			const size = Number(sizeInput);
 			const canWalkBridge = BridgeMaker.makeBridge(size, generator);
 
-			this.readMoving();
+			this.moveCount = 0;
+			this.readMoving(canWalkBridge);
 		});
 	},
 
 	/**
 	 * 사용자가 이동할 칸을 입력받는다.
 	 */
-	readMoving() {
+	readMoving(canWalkBridge) {
 		Console.readLine(MESSAGE.ASK_WHERE_WANT_TO_GO, (moving) => {
 			const movingValidation = new MovingValidation(moving);
 			movingValidation.validateMoving();
+
+			const bridgeGame = new BridgeGame();
+			const isCorrectMove = bridgeGame.move(
+				canWalkBridge,
+				moving,
+				this.moveCount,
+			);
 		});
 	},
 

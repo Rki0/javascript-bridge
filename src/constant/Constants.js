@@ -17,6 +17,9 @@ const GAME = {
 	STARTING_STRING_OF_NUMBER: '0',
 	LOWER_BRIDGE_STRING: 'D',
 	UPPER_BRIDGE_STRING: 'U',
+	CORRECT_BRIDGE: ' O ',
+	WRONG_BRIDGE: ' X ',
+	EMPTY_BRIDGE: '   ',
 };
 
 module.exports = { MESSAGE, ERROR, GAME };
