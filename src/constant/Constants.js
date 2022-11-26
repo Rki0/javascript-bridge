@@ -22,4 +22,8 @@ const GAME = {
   EMPTY_BRIDGE: '   ',
 };
 
-module.exports = { MESSAGE, ERROR, GAME };
+const STATE = {
+  BRIDGE_SATE: (state) => `[${state.join('|')}]`,
+};
+
+module.exports = { MESSAGE, ERROR, GAME, STATE };
