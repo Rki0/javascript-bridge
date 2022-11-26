@@ -1,4 +1,4 @@
-const { ERROR } = require('../constant/Constants');
+const { ERROR, GAME } = require('../constant/Constants');
 
 class SizeError {
 	#size;
@@ -18,13 +18,16 @@ class SizeError {
 	checkNumberRange() {
 		const sizeTypeofNumber = Number(this.#size);
 
-		if (sizeTypeofNumber < 3 || sizeTypeofNumber > 20) {
+		if (
+			sizeTypeofNumber < GAME.MINIMUM_RANGE_OF_SIZE
+			|| sizeTypeofNumber > GAME.MAXIMUM_RANGE_OF_SIZE
+		) {
 			throw new Error(ERROR.ERROR_OUT_OF_RANGE);
 		}
 	}
 
 	checkStartWithZero() {
-		if (this.#size[0] === '0') {
+		if (this.#size[0] === GAME.STARTING_STRING_OF_NUMBER) {
 			throw new Error(ERROR.ERROR_START_WITH_ZERO);
 		}
 	}

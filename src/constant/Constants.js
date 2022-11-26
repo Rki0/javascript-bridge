@@ -9,4 +9,10 @@ const ERROR = {
 	ERROR_START_WITH_ZERO: '[ERROR] 0으로 시작하는 숫자는 입력할 수 없습니다.\n',
 };
 
-module.exports = { MESSAGE, ERROR };
+const GAME = {
+	MINIMUM_RANGE_OF_SIZE: 3,
+	MAXIMUM_RANGE_OF_SIZE: 20,
+	STARTING_STRING_OF_NUMBER: '0',
+};
+
+module.exports = { MESSAGE, ERROR, GAME };
