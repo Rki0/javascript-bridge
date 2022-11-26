@@ -3,7 +3,7 @@
 // 메서드 추가 가능
 // 주어진 메서드명 변경 불가능
 const { Console } = require('@woowacourse/mission-utils');
-const { MESSAGE, STATE } = require('../constant/Constants');
+const { MESSAGE, STATE, RESULT } = require('../constant/Constants');
 const Player = require('../Player');
 
 /**
@@ -25,7 +25,13 @@ const OutputView = {
    * <p>
    * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
-  printResult() {},
+  printResult() {
+    Console.print(MESSAGE.NOTIFY_GAME_RESULT);
+    this.printMap();
+    Console.print(RESULT.GAME_SUCCESS_STATE(Player.gameSuccess));
+    Console.print(RESULT.GAME_TRYING_COUNT(Player.gameTryingCount));
+    Console.close();
+  },
 
   printStart() {
     Console.print(MESSAGE.NOTIFY_GAME_SATRT);

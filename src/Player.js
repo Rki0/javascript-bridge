@@ -3,6 +3,8 @@ const { GAME } = require('./constant/Constants');
 const Player = {
   bridgeState: [[], []],
   movingCount: 0,
+  gameSuccess: false,
+  gameTryingCount: 1,
 
   updateBridgeState(canWalkBridge, moving) {
     this.checkMovingCorrect(canWalkBridge, moving);
@@ -56,6 +58,10 @@ const Player = {
 
   increaseMovingCount() {
     this.movingCount += 1;
+  },
+
+  setGameSuccess() {
+    this.gameSuccess = true;
   },
 };
 

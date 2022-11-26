@@ -2,6 +2,7 @@ const MESSAGE = {
   NOTIFY_GAME_SATRT: '다리 건너기 게임을 시작합니다.\n',
   ASK_BRIDGE_LENGTH: '다리의 길이를 입력해주세요.\n',
   ASK_WHERE_WANT_TO_GO: '이동할 칸을 선택해주세요. (위: U, 아래: D)\n',
+  NOTIFY_GAME_RESULT: '최종 게임 결과\n',
 };
 
 const ERROR = {
@@ -26,4 +27,9 @@ const STATE = {
   BRIDGE_SATE: (state) => `[${state.join('|')}]`,
 };
 
-module.exports = { MESSAGE, ERROR, GAME, STATE };
+const RESULT = {
+  GAME_SUCCESS_STATE: (state) => `게임 성공 여부: ${state ? '성공' : '실패'}`,
+  GAME_TRYING_COUNT: (count) => `총 시도한 횟수: ${count}`,
+};
+
+module.exports = { MESSAGE, ERROR, GAME, STATE, RESULT };
