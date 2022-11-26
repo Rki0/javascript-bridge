@@ -43,6 +43,11 @@ const InputView = {
       if (isCorrectMove) {
         Player.updateBridgeState(canWalkBridge, moving);
         Player.increaseMovingCount();
+        this.readMoving(canWalkBridge);
+      }
+
+      if (!isCorrectMove) {
+        this.readGameCommand();
       }
     });
   },
