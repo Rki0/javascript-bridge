@@ -3,6 +3,7 @@
 // 메서드 추가 가능
 const { Console } = require('@woowacourse/mission-utils');
 const { MESSAGE } = require('../constant/Constants');
+const SizeValidation = require('../validation/SizeValidation');
 
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
@@ -12,7 +13,10 @@ const InputView = {
 	 * 다리의 길이를 입력받는다.
 	 */
 	readBridgeSize() {
-		Console.readLine(MESSAGE.ASK_BRIDGE_LENGTH, (sizeInput) => {});
+		Console.readLine(MESSAGE.ASK_BRIDGE_LENGTH, (sizeInput) => {
+			const sizeValidation = new SizeValidation(sizeInput);
+			sizeValidation.validateSize();
+		});
 	},
 
 	/**
