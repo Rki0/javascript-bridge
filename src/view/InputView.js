@@ -75,11 +75,19 @@ const InputView = {
   },
 
   handleCorrectMoving(canWalkBridge, isCorrectMove) {
+    this.handleGameSuccess(canWalkBridge, isCorrectMove);
+
+    this.handleNotYetSuccess(canWalkBridge, isCorrectMove);
+  },
+
+  handleGameSuccess(canWalkBridge, isCorrectMove) {
     if (isCorrectMove && Player.movingCount === canWalkBridge.length - 1) {
       Player.setGameSuccess();
       OutputView.printResult();
     }
+  },
 
+  handleNotYetSuccess(canWalkBridge, isCorrectMove) {
     if (isCorrectMove && Player.movingCount !== canWalkBridge.length - 1) {
       Player.increaseMovingCount();
       this.readMoving(canWalkBridge);
