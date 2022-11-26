@@ -3,6 +3,8 @@ const MESSAGE = {
   ASK_BRIDGE_LENGTH: '다리의 길이를 입력해주세요.\n',
   ASK_WHERE_WANT_TO_GO: '이동할 칸을 선택해주세요. (위: U, 아래: D)\n',
   NOTIFY_GAME_RESULT: '최종 게임 결과\n',
+  ASK_RESTART_OR_QUIT:
+    '게임을 다시 시도할지 여부를 입력해주세요. (재시도: R, 종료: Q)',
 };
 
 const ERROR = {
