@@ -8,6 +8,7 @@ const BridgeMaker = require('../BridgeMaker');
 const generator = require('../BridgeRandomNumberGenerator').generate;
 const MovingValidation = require('../validation/MovingValidation');
 const BridgeGame = require('../BridgeGame');
+const Player = require('../Player');
 
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
@@ -38,6 +39,10 @@ const InputView = {
 
       const bridgeGame = new BridgeGame();
       const isCorrectMove = bridgeGame.move(canWalkBridge, moving);
+
+      if (isCorrectMove) {
+        Player.updateBridgeState(canWalkBridge, moving);
+      }
     });
   },
 
