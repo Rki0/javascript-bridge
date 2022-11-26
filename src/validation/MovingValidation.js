@@ -1,16 +1,16 @@
 const MovingError = require('../error/MovingError');
 
 class MovingValidation {
-	#moving;
+  #moving;
 
-	constructor(moving) {
-		this.#moving = moving;
-	}
+  constructor(moving) {
+    this.#moving = moving;
+  }
 
-	validateMoving() {
-		const movingError = new MovingError(this.#moving);
-		movingError.checkUorD();
-	}
+  validateMoving() {
+    const movingError = new MovingError(this.#moving);
+    movingError.checkUorD();
+  }
 }
 
 module.exports = MovingValidation;

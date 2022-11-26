@@ -1,18 +1,18 @@
 const SizeError = require('../error/SizeError');
 
 class SizeValidation {
-	#size;
+  #size;
 
-	constructor(size) {
-		this.#size = size;
-	}
+  constructor(size) {
+    this.#size = size;
+  }
 
-	validateSize() {
-		const sizeError = new SizeError(this.#size);
-		sizeError.checkOnlyNumber();
-		sizeError.checkStartWithZero();
-		sizeError.checkNumberRange();
-	}
+  validateSize() {
+    const sizeError = new SizeError(this.#size);
+    sizeError.checkOnlyNumber();
+    sizeError.checkStartWithZero();
+    sizeError.checkNumberRange();
+  }
 }
 
 module.exports = SizeValidation;

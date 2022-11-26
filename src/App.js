@@ -1,9 +1,9 @@
 const OutputView = require('./view/OutputView');
 
 class App {
-	play() {
-		OutputView.printStart();
-	}
+  play() {
+    OutputView.printStart();
+  }
 }
 
 const app = new App();
