@@ -37,6 +37,10 @@ const Player = {
       }
     }
   },
+
+  increaseMovingCount() {
+    this.movingCount += 1;
+  },
 };
 
 module.exports = Player;

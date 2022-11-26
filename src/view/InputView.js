@@ -42,6 +42,7 @@ const InputView = {
 
       if (isCorrectMove) {
         Player.updateBridgeState(canWalkBridge, moving);
+        Player.increaseMovingCount();
       }
     });
   },
