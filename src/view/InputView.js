@@ -10,6 +10,7 @@ const MovingValidation = require('../validation/MovingValidation');
 const BridgeGame = require('../BridgeGame');
 const Player = require('../Player');
 const OutputView = require('./OutputView');
+const CommandValidation = require('../validation/CommandValidation');
 
 /**
  * 사용자로부터 입력을 받는 역할을 한다.
@@ -104,7 +105,10 @@ const InputView = {
    * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
    */
   readGameCommand() {
-    Console.readLine(MESSAGE.ASK_RESTART_OR_QUIT, (command) => {});
+    Console.readLine(MESSAGE.ASK_RESTART_OR_QUIT, (command) => {
+      const commandValidation = new CommandValidation(command);
+      commandValidation.validateCommand();
+    });
   },
 };
 

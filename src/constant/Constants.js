@@ -12,6 +12,7 @@ const ERROR = {
   ERROR_OUT_OF_RANGE: '[ERROR] 다리 길이는 3부터 20 사이의 숫자여야 합니다.\n',
   ERROR_START_WITH_ZERO: '[ERROR] 0으로 시작하는 숫자는 입력할 수 없습니다.\n',
   ERROR_NOT_U_OR_D: '[ERROR] U 혹은 D만 입력 가능합니다.\n',
+  ERROR_NOT_R_OR_Q: '[ERROR] R 혹은 Q만 입력 가능합니다.\n',
 };
 
 const GAME = {
@@ -23,6 +24,8 @@ const GAME = {
   CORRECT_BRIDGE: ' O ',
   WRONG_BRIDGE: ' X ',
   EMPTY_BRIDGE: '   ',
+  RESTART_COMMAND: 'R',
+  QUIT_COMMAND: 'Q',
 };
 
 const STATE = {
