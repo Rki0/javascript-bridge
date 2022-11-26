@@ -8,7 +8,7 @@ class MovingValidation {
 	}
 
 	validateMoving() {
-		const movingError = new MovingError();
+		const movingError = new MovingError(this.#moving);
 		movingError.checkUorD();
 	}
 }

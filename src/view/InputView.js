@@ -32,7 +32,7 @@ const InputView = {
 	 */
 	readMoving() {
 		Console.readLine(MESSAGE.ASK_WHERE_WANT_TO_GO, (moving) => {
-			const movingValidation = new MovingValidation();
+			const movingValidation = new MovingValidation(moving);
 			movingValidation.validateMoving();
 		});
 	},
