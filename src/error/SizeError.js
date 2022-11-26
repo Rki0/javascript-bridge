@@ -22,6 +22,12 @@ class SizeError {
 			throw new Error(ERROR.ERROR_OUT_OF_RANGE);
 		}
 	}
+
+	checkStartWithZero() {
+		if (this.#size[0] === '0') {
+			throw new Error(ERROR.ERROR_START_WITH_ZERO);
+		}
+	}
 }
 
 module.exports = SizeError;

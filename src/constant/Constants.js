@@ -5,7 +5,8 @@ const MESSAGE = {
 
 const ERROR = {
 	ERROR_NOT_ONLY_NUMBER: '[ERROR] 다리 길이는 숫자만 입력할 수 있습니다.\n',
-	ERROR_OUT_OF_RANGE: '[ERROR] 다리 길이는 3부터 20 사이의 숫자여야 합니다.',
+	ERROR_OUT_OF_RANGE: '[ERROR] 다리 길이는 3부터 20 사이의 숫자여야 합니다.\n',
+	ERROR_START_WITH_ZERO: '[ERROR] 0으로 시작하는 숫자는 입력할 수 없습니다.\n',
 };
 
 module.exports = { MESSAGE, ERROR };
