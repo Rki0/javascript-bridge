@@ -10,6 +10,7 @@ class SizeValidation {
 	validateSize() {
 		const sizeError = new SizeError(this.#size);
 		sizeError.checkOnlyNumber();
+		sizeError.checkNumberRange();
 	}
 }
 
