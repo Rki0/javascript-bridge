@@ -19,14 +19,27 @@ const InputView = {
    */
   readBridgeSize() {
     Console.readLine(MESSAGE.ASK_BRIDGE_LENGTH, (sizeInput) => {
-      const sizeValidation = new SizeValidation(sizeInput);
-      sizeValidation.validateSize();
-
-      const size = Number(sizeInput);
-      const canWalkBridge = BridgeMaker.makeBridge(size, generator);
-
-      this.readMoving(canWalkBridge);
+      try {
+        this.handleSize(sizeInput);
+      } catch (err) {
+        Console.print(err);
+        this.readBridgeSize();
+      }
     });
+  },
+
+  handleSize(sizeInput) {
+    this.validateSizeInput(sizeInput);
+
+    const size = Number(sizeInput);
+    const canWalkBridge = BridgeMaker.makeBridge(size, generator);
+
+    this.readMoving(canWalkBridge);
+  },
+
+  validateSizeInput(sizeInput) {
+    const sizeValidation = new SizeValidation(sizeInput);
+    sizeValidation.validateSize();
   },
 
   /**
@@ -34,22 +47,42 @@ const InputView = {
    */
   readMoving(canWalkBridge) {
     Console.readLine(MESSAGE.ASK_WHERE_WANT_TO_GO, (moving) => {
-      const movingValidation = new MovingValidation(moving);
-      movingValidation.validateMoving();
-
-      const bridgeGame = new BridgeGame();
-      const isCorrectMove = bridgeGame.move(canWalkBridge, moving);
-
-      if (isCorrectMove) {
-        Player.updateBridgeState(canWalkBridge, moving);
-        Player.increaseMovingCount();
+      try {
+        this.handleMoving(canWalkBridge, moving);
+      } catch (err) {
+        Console.print(err);
         this.readMoving(canWalkBridge);
       }
-
-      if (!isCorrectMove) {
-        this.readGameCommand();
-      }
     });
+  },
+
+  handleMoving(canWalkBridge, moving) {
+    this.validateMoving(moving);
+
+    const bridgeGame = new BridgeGame();
+    const isCorrectMove = bridgeGame.move(canWalkBridge, moving);
+
+    this.handleCorrectMoving(canWalkBridge, moving, isCorrectMove);
+    this.handleWrongMoving(isCorrectMove);
+  },
+
+  validateMoving(moving) {
+    const movingValidation = new MovingValidation(moving);
+    movingValidation.validateMoving();
+  },
+
+  handleCorrectMoving(canWalkBridge, moving, isCorrectMove) {
+    if (isCorrectMove) {
+      Player.updateBridgeState(canWalkBridge, moving);
+      Player.increaseMovingCount();
+      this.readMoving(canWalkBridge);
+    }
+  },
+
+  handleWrongMoving(isCorrectMove) {
+    if (!isCorrectMove) {
+      this.readGameCommand();
+    }
   },
 
   /**
