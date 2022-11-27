@@ -63,6 +63,12 @@ const Player = {
   setGameSuccess() {
     this.gameSuccess = true;
   },
+
+  retry() {
+    this.movingCount = 0;
+    this.gameTryingCount += 1;
+    this.bridgeState = [[], []];
+  },
 };
 
 module.exports = Player;

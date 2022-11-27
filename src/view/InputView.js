@@ -34,9 +34,9 @@ const InputView = {
     this.validateSizeInput(sizeInput);
 
     const size = Number(sizeInput);
-    const canWalkBridge = BridgeMaker.makeBridge(size, generator);
+    this.canWalkBridge = BridgeMaker.makeBridge(size, generator);
 
-    this.readMoving(canWalkBridge);
+    this.readMoving();
   },
 
   validateSizeInput(sizeInput) {
@@ -47,25 +47,25 @@ const InputView = {
   /**
    * 사용자가 이동할 칸을 입력받는다.
    */
-  readMoving(canWalkBridge) {
+  readMoving() {
     Console.readLine(MESSAGE.ASK_WHERE_WANT_TO_GO, (moving) => {
       try {
-        this.handleMoving(canWalkBridge, moving);
+        this.handleMoving(moving);
       } catch (err) {
         Console.print(err);
-        this.readMoving(canWalkBridge);
+        this.readMoving();
       }
     });
   },
 
-  handleMoving(canWalkBridge, moving) {
+  handleMoving(moving) {
     this.validateMoving(moving);
 
-    const isCorrectMove = BridgeGame.move(canWalkBridge, moving);
-    Player.updateBridgeState(canWalkBridge, moving);
+    const isCorrectMove = BridgeGame.move(this.canWalkBridge, moving);
+    Player.updateBridgeState(this.canWalkBridge, moving);
     OutputView.printMap();
 
-    this.handleCorrectMoving(canWalkBridge, isCorrectMove);
+    this.handleCorrectMoving(isCorrectMove);
     this.handleWrongMoving(isCorrectMove);
   },
 
@@ -74,23 +74,23 @@ const InputView = {
     movingValidation.validateMoving();
   },
 
-  handleCorrectMoving(canWalkBridge, isCorrectMove) {
-    this.handleGameSuccess(canWalkBridge, isCorrectMove);
+  handleCorrectMoving(isCorrectMove) {
+    this.handleGameSuccess(isCorrectMove);
 
-    this.handleNotYetSuccess(canWalkBridge, isCorrectMove);
+    this.handleNotYetSuccess(isCorrectMove);
   },
 
-  handleGameSuccess(canWalkBridge, isCorrectMove) {
-    if (isCorrectMove && Player.movingCount === canWalkBridge.length - 1) {
+  handleGameSuccess(isCorrectMove) {
+    if (isCorrectMove && Player.movingCount === this.canWalkBridge.length - 1) {
       Player.setGameSuccess();
       OutputView.printResult();
     }
   },
 
-  handleNotYetSuccess(canWalkBridge, isCorrectMove) {
-    if (isCorrectMove && Player.movingCount !== canWalkBridge.length - 1) {
+  handleNotYetSuccess(isCorrectMove) {
+    if (isCorrectMove && Player.movingCount !== this.canWalkBridge.length - 1) {
       Player.increaseMovingCount();
-      this.readMoving(canWalkBridge);
+      this.readMoving(this.canWalkBridge);
     }
   },
 
@@ -105,11 +105,44 @@ const InputView = {
    */
   readGameCommand() {
     Console.readLine(MESSAGE.ASK_RESTART_OR_QUIT, (command) => {
-      const commandValidation = new CommandValidation(command);
-      commandValidation.validateCommand();
-
-      const wantReTry = BridgeGame.retry(command);
+      try {
+        this.hadleCommand(command);
+      } catch (err) {
+        Console.print(err);
+        this.readGameCommand();
+      }
     });
+  },
+
+  hadleCommand(command) {
+    this.validateCommand(command);
+
+    this.decideRetry(command);
+  },
+
+  validateCommand(command) {
+    const commandValidation = new CommandValidation(command);
+    commandValidation.validateCommand();
+  },
+
+  decideRetry(command) {
+    const wantReTry = BridgeGame.retry(command);
+
+    this.handleRetry(wantReTry);
+    this.handleQuit(wantReTry);
+  },
+
+  handleRetry(wantReTry) {
+    if (wantReTry) {
+      Player.retry();
+      this.readMoving(this.canWalkBridge);
+    }
+  },
+
+  handleQuit(wantReTry) {
+    if (!wantReTry) {
+      OutputView.printResult();
+    }
   },
 };
 
