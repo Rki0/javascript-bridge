@@ -22,6 +22,7 @@ const InputView = {
   readBridgeSize() {
     Console.readLine(MESSAGE.ASK_BRIDGE_LENGTH, (sizeInput) => {
       try {
+        Console.print('');
         this.handleSize(sizeInput);
       } catch (err) {
         Console.print(err);

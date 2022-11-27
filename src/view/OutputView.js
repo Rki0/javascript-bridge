@@ -17,7 +17,7 @@ const OutputView = {
    */
   printMap() {
     Console.print(STATE.BRIDGE_SATE(Player.bridgeState[1]));
-    Console.print(STATE.BRIDGE_SATE(Player.bridgeState[0]));
+    Console.print(`${STATE.BRIDGE_SATE(Player.bridgeState[0])}\n`);
   },
 
   /**
