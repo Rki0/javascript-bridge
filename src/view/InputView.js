@@ -61,8 +61,7 @@ const InputView = {
   handleMoving(canWalkBridge, moving) {
     this.validateMoving(moving);
 
-    const bridgeGame = new BridgeGame();
-    const isCorrectMove = bridgeGame.move(canWalkBridge, moving);
+    const isCorrectMove = BridgeGame.move(canWalkBridge, moving);
     Player.updateBridgeState(canWalkBridge, moving);
     OutputView.printMap();
 
@@ -108,6 +107,8 @@ const InputView = {
     Console.readLine(MESSAGE.ASK_RESTART_OR_QUIT, (command) => {
       const commandValidation = new CommandValidation(command);
       commandValidation.validateCommand();
+
+      const wantReTry = BridgeGame.retry(command);
     });
   },
 };
