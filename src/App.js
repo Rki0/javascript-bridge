@@ -2,7 +2,8 @@ const Game = require('./Game');
 
 class App {
   play() {
-    new Game();
+    const game = new Game();
+    game.decideSize();
   }
 }
 
