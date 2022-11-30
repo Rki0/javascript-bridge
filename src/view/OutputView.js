@@ -1,3 +1,10 @@
+// 파일 경로 변경 가능
+// 메서드 인자 변경 가능
+// 메서드 추가 가능
+// 메서드 명 변경 불가능
+const { Console } = require('@woowacourse/mission-utils');
+const { MESSAGE } = require('../constant/Constants');
+
 /**
  * 사용자에게 게임 진행 상황과 결과를 출력하는 역할을 한다.
  */
@@ -15,6 +22,10 @@ const OutputView = {
    * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
   printResult() {},
+
+  printStart() {
+    Console.print(MESSAGE.NOTIFY_START);
+  },
 };
 
 module.exports = OutputView;
