@@ -1,7 +1,3 @@
-// readLine은 여기서만 사용 가능
-// 파일 경로 변경 가능
-// 메서드의 인자 변경 가능
-// 메서드 추가 가능
 const { Console } = require('@woowacourse/mission-utils');
 const { MESSAGE } = require('../constant/Constants');
 

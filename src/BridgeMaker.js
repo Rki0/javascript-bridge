@@ -1,6 +1,3 @@
-// 프로퍼티 추가 불가능
-// 경로 변경 불가능
-// 메서드 명, 인자 변경 불가능
 const { GAME } = require('./constant/Constants');
 
 /**
