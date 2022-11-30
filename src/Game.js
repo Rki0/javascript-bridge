@@ -5,6 +5,7 @@ const BridgeMaker = require('./BridgeMaker');
 const generator = require('./BridgeRandomNumberGenerator').generate;
 const MovingValidation = require('./validation/MovingValidation');
 const Result = require('./Result');
+const CommandValidation = require('./validation/CommandValidation');
 
 class Game {
   constructor() {
@@ -83,7 +84,15 @@ class Game {
     InputView.readGameCommand(this.handleCommand.bind(this));
   }
 
-  handleCommand() {}
+  handleCommand(command) {
+    try {
+      const commandValidation = new CommandValidation(command);
+      commandValidation.checkError();
+    } catch (err) {
+      OutputView.printError(err.message);
+      this.decideRestart();
+    }
+  }
 }
 
 module.exports = Game;

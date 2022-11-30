@@ -15,6 +15,7 @@ const ERROR = {
   START_WITH_ZERO: '[ERROR] 0으로 시작하는 숫자는 입력할 수 없습니다.\n',
   NOT_ONLY_NUMBER: '[ERROR] 오직 숫자만 입력할 수 있습니다.\n',
   NOT_U_OR_D: '[ERROR] U 혹은 D만 입력할 수 있습니다.\n',
+  NOT_R_OR_Q: '[ERROR] R 혹은 Q만 입력할 수 있습니다.\n',
 };
 
 const GAME = {
@@ -25,6 +26,8 @@ const GAME = {
   UPPER_BRIDGE_NUMBER: 1,
   LOWER_BRIDGE_STRING: 'D',
   UPPER_BRIDGE_STRING: 'U',
+  RESTART_COMMAND: 'R',
+  QUIT_COMMAND: 'Q',
 };
 
 const RESULT = {
