@@ -11,6 +11,7 @@ class SizeValidation {
   checkError() {
     this.checkRange();
     this.checkStartWithZero();
+    this.checkOnlyNumber();
   }
 
   checkRange() {
@@ -24,6 +25,14 @@ class SizeValidation {
   checkStartWithZero() {
     if (this.#size[0] === GAME.STRING_ZERO) {
       throw new SizeError(ERROR.START_WITH_ZERO);
+    }
+  }
+
+  checkOnlyNumber() {
+    const regex = /^\d+$/g;
+
+    if (!regex.test(this.#size)) {
+      throw new SizeError(ERROR.NOT_ONLY_NUMBER);
     }
   }
 }
