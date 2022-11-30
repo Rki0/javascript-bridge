@@ -4,6 +4,7 @@ const SizeValidation = require('./validation/SizeValidation');
 const BridgeMaker = require('./BridgeMaker');
 const generator = require('./BridgeRandomNumberGenerator').generate;
 const MovingValidation = require('./validation/MovingValidation');
+const Result = require('./Result');
 
 class Game {
   constructor() {
@@ -18,7 +19,7 @@ class Game {
     try {
       this.validateSize(sizeInput);
       const size = Number(sizeInput);
-      const canWalkBridge = BridgeMaker.makeBridge(size, generator);
+      this.canWalkBridge = BridgeMaker.makeBridge(size, generator);
     } catch (err) {
       OutputView.printError(err.message);
       this.decideSize();
@@ -36,12 +37,21 @@ class Game {
 
   handleMoving(moving) {
     try {
-      const movingValidation = new MovingValidation(moving);
-      movingValidation.checkError();
+      this.validateMoving(moving);
+      this.checkMoving(moving);
     } catch (err) {
       OutputView.printError(err.message);
       this.decideMoving();
     }
+  }
+
+  validateMoving(moving) {
+    const movingValidation = new MovingValidation(moving);
+    movingValidation.checkError();
+  }
+
+  checkMoving(moving) {
+    const correctMoving = Result.checkCorrectMoving(this.canWalkBridge, moving);
   }
 }
 
