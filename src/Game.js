@@ -72,8 +72,18 @@ class Game {
       return this.decideMoving();
     }
 
-    return OutputView.printResult(Result.bridgeState);
+    return OutputView.printResult(
+      Result.bridgeState,
+      gameSuccess,
+      Result.tryingCount,
+    );
   }
+
+  decideRestart() {
+    InputView.readGameCommand(this.handleCommand.bind(this));
+  }
+
+  handleCommand() {}
 }
 
 module.exports = Game;
