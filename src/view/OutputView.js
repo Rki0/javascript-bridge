@@ -29,6 +29,7 @@ const OutputView = {
     this.printMap(state);
     Console.print(MESSAGE.SUCCESS_STATE(success));
     Console.print(MESSAGE.TRYING_STATE(count));
+    Console.close();
   },
 
   printStart() {
