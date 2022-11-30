@@ -4,8 +4,9 @@ const SizeValidation = require('./validation/SizeValidation');
 const BridgeMaker = require('./BridgeMaker');
 const generator = require('./BridgeRandomNumberGenerator').generate;
 const MovingValidation = require('./validation/MovingValidation');
-const Result = require('./Result');
+const Player = require('./Player');
 const CommandValidation = require('./validation/CommandValidation');
+const BridgeGame = require('./BridgeGame');
 
 class Game {
   constructor() {
@@ -18,9 +19,9 @@ class Game {
 
   handleSize(sizeInput) {
     try {
+      OutputView.printEmpty();
       this.validateSize(sizeInput);
-      const size = Number(sizeInput);
-      this.canWalkBridge = BridgeMaker.makeBridge(size, generator);
+      this.makeRandomBridge(sizeInput);
       this.decideMoving();
     } catch (err) {
       OutputView.printError(err.message);
@@ -31,6 +32,11 @@ class Game {
   validateSize(sizeInput) {
     const sizeValidation = new SizeValidation(sizeInput);
     sizeValidation.checkError();
+  }
+
+  makeRandomBridge(sizeInput) {
+    const size = Number(sizeInput);
+    this.canWalkBridge = BridgeMaker.makeBridge(size, generator);
   }
 
   decideMoving() {
@@ -53,31 +59,29 @@ class Game {
   }
 
   checkMoving(moving) {
-    const correctMoving = Result.checkCorrectMoving(this.canWalkBridge, moving);
-    Result.updateBridgeState(moving, correctMoving);
-    OutputView.printMap(Result.bridgeState);
+    const correctMoving = BridgeGame.move(this.canWalkBridge, moving);
+    Player.updateBridgeState(moving, correctMoving);
+    OutputView.printMap(Player.bridgeState);
     this.checkCorrect(correctMoving);
   }
 
   checkCorrect(correctMoving) {
     if (!correctMoving) {
-      return;
+      Player.resetMovingCount();
+      return this.decideRestart();
     }
 
-    const gameSuccess = Result.checkGameSuccess(this.canWalkBridge);
-    this.checkSuccess(gameSuccess);
+    Player.increaseMovingCount();
+    Player.checkGameSuccess(this.canWalkBridge);
+    return this.checkSuccess();
   }
 
-  checkSuccess(gameSuccess) {
-    if (!gameSuccess) {
+  checkSuccess() {
+    if (!Player.success) {
       return this.decideMoving();
     }
 
-    return OutputView.printResult(
-      Result.bridgeState,
-      gameSuccess,
-      Result.tryingCount,
-    );
+    return OutputView.printResult();
   }
 
   decideRestart() {
@@ -86,12 +90,31 @@ class Game {
 
   handleCommand(command) {
     try {
-      const commandValidation = new CommandValidation(command);
-      commandValidation.checkError();
+      this.validateCommand(command);
+      this.checkRestart(command);
     } catch (err) {
       OutputView.printError(err.message);
       this.decideRestart();
     }
+  }
+
+  validateCommand(command) {
+    const commandValidation = new CommandValidation(command);
+    commandValidation.checkError();
+  }
+
+  checkRestart(command) {
+    const gameRestart = BridgeGame.retry(command);
+    this.restartOrQuit(gameRestart);
+  }
+
+  restartOrQuit(gameRestart) {
+    if (!gameRestart) {
+      return OutputView.printResult();
+    }
+
+    Player.restart();
+    return this.decideMoving();
   }
 }
 
