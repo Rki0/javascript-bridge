@@ -20,6 +20,7 @@ class Game {
       this.validateSize(sizeInput);
       const size = Number(sizeInput);
       this.canWalkBridge = BridgeMaker.makeBridge(size, generator);
+      this.decideMoving();
     } catch (err) {
       OutputView.printError(err.message);
       this.decideSize();
@@ -53,12 +54,25 @@ class Game {
   checkMoving(moving) {
     const correctMoving = Result.checkCorrectMoving(this.canWalkBridge, moving);
     Result.updateBridgeState(moving, correctMoving);
+    OutputView.printMap(Result.bridgeState);
+    this.checkCorrect(correctMoving);
   }
 
   checkCorrect(correctMoving) {
-    if (correctMoving) {
-      const gameSuccess = Result.checkGameSuccess(this.canWalkBridge);
+    if (!correctMoving) {
+      return;
     }
+
+    const gameSuccess = Result.checkGameSuccess(this.canWalkBridge);
+    this.checkSuccess(gameSuccess);
+  }
+
+  checkSuccess(gameSuccess) {
+    if (!gameSuccess) {
+      return this.decideMoving();
+    }
+
+    return OutputView.printResult(Result.bridgeState);
   }
 }
 
