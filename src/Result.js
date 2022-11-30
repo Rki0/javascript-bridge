@@ -58,6 +58,14 @@ const Result = {
       this.bridgeState[0].push(RESULT.EMPTY_BRIDGE);
     }
   },
+
+  checkGameSuccess(canWalkBridge) {
+    if (this.movingCount !== canWalkBridge.length) {
+      return false;
+    }
+
+    return true;
+  },
 };
 
 module.exports = Result;

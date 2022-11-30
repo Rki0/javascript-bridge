@@ -54,6 +54,12 @@ class Game {
     const correctMoving = Result.checkCorrectMoving(this.canWalkBridge, moving);
     Result.updateBridgeState(moving, correctMoving);
   }
+
+  checkCorrect(correctMoving) {
+    if (correctMoving) {
+      const gameSuccess = Result.checkGameSuccess(this.canWalkBridge);
+    }
+  }
 }
 
 module.exports = Game;
