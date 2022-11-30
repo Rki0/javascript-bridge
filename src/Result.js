@@ -3,9 +3,11 @@ const Result = {
 
   checkCorrectMoving(canWalkBridge, moving) {
     if (canWalkBridge[this.movingCount] !== moving) {
+      this.movingCount = 0;
       return false;
     }
 
+    this.movingCount += 1;
     return true;
   },
 };
