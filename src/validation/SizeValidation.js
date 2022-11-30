@@ -10,6 +10,7 @@ class SizeValidation {
 
   checkError() {
     this.checkRange();
+    this.checkStartWithZero();
   }
 
   checkRange() {
@@ -17,6 +18,12 @@ class SizeValidation {
 
     if (sizeNumber < GAME.MINIMUM_RANGE || sizeNumber > GAME.MAXIMUM_RANGE) {
       throw new SizeError(ERROR.OUT_OF_RANGE);
+    }
+  }
+
+  checkStartWithZero() {
+    if (this.#size[0] === GAME.STRING_ZERO) {
+      throw new SizeError(ERROR.START_WITH_ZERO);
     }
   }
 }
