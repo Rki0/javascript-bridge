@@ -1,12 +1,12 @@
 const { GAME, RESULT } = require('./constant/Constants');
 
 const Result = {
-  movingCount: 1,
+  movingCount: 0,
   bridgeState: [[], []],
 
   checkCorrectMoving(canWalkBridge, moving) {
-    if (canWalkBridge[this.movingCount - 1] !== moving) {
-      this.movingCount = 1;
+    if (canWalkBridge[this.movingCount] !== moving) {
+      this.movingCount = 0;
       return false;
     }
 
