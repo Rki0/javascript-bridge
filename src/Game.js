@@ -59,7 +59,11 @@ class Game {
   }
 
   checkMoving(moving) {
-    const correctMoving = BridgeGame.move(this.canWalkBridge, moving);
+    const correctMoving = BridgeGame.move(
+      this.canWalkBridge,
+      moving,
+      Player.movingCount,
+    );
     Player.updateBridgeState(moving, correctMoving);
     OutputView.printMap(Player.bridgeState);
     this.checkCorrect(correctMoving);

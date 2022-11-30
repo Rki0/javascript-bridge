@@ -10,8 +10,8 @@ class BridgeGame {
    * <p>
    * 이동을 위해 필요한 메서드의 반환 값(return value), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
    */
-  static move(canWalkBridge, moving) {
-    if (canWalkBridge[Player.movingCount] !== moving) {
+  static move(canWalkBridge, moving, count) {
+    if (canWalkBridge[count] !== moving) {
       return false;
     }
 
