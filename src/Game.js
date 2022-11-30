@@ -52,6 +52,7 @@ class Game {
 
   checkMoving(moving) {
     const correctMoving = Result.checkCorrectMoving(this.canWalkBridge, moving);
+    Result.updateBridgeState(moving, correctMoving);
   }
 }
 

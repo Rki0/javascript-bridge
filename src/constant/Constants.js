@@ -21,4 +21,10 @@ const GAME = {
   UPPER_BRIDGE_STRING: 'U',
 };
 
-module.exports = { MESSAGE, ERROR, GAME };
+const RESULT = {
+  CORRECT_BRIDGE: ' O ',
+  WRONG_BRIDGE: ' X ',
+  EMPTY_BRIDGE: '   ',
+};
+
+module.exports = { MESSAGE, ERROR, GAME, RESULT };
