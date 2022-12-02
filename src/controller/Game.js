@@ -5,6 +5,7 @@ const BridgeMaker = require('../BridgeMaker');
 const generator = require('../BridgeRandomNumberGenerator').generate;
 const MovingValidation = require('../validation/MovingValidation');
 const BridgeGame = require('./BridgeGame');
+const Player = require('../model/Player');
 
 class Game {
   constructor() {
@@ -34,12 +35,19 @@ class Game {
   handleMoving(moving) {
     try {
       MovingValidation.validateMoving(moving);
-      const bridgeGame = new BridgeGame();
-      const correctMoving = bridgeGame.move(this.canWalkBridge, moving);
+      this.calculateMoving(moving);
     } catch (err) {
       OutputView.printError(err.messages);
       this.getMoving();
     }
+  }
+
+  calculateMoving(moving) {
+    const bridgeGame = new BridgeGame();
+    const correctMoving = bridgeGame.move(this.canWalkBridge, moving);
+
+    const player = new Player();
+    player.updateBridgeState(moving, correctMoving);
   }
 }
 

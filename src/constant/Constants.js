@@ -3,8 +3,15 @@ const GAME = Object.freeze({
   MINIMUM_RANGE: 3,
   MAXIMUM_RANGE: 20,
   LOWER_BRIDGE_NUMBER: 0,
+  UPPER_BRIDGE_NUMBER: 1,
   LOWER_BRIDGE_STRING: 'D',
   UPPER_BRIDGE_STRING: 'U',
+});
+
+const RESULT = Object.freeze({
+  CORRECT_MOVING: ' O ',
+  WRONG_MOVING: ' X ',
+  NOT_CHOICED: '   ',
 });
 
 const MESSAGE = Object.freeze({
@@ -20,4 +27,4 @@ const ERROR = Object.freeze({
   NOT_VALID_MOVING: `[ERROR] ${GAME.LOWER_BRIDGE_STRING} 혹은 ${GAME.UPPER_BRIDGE_STRING}만 입력할 수 있습니다.\n`,
 });
 
-module.exports = { MESSAGE, ERROR, GAME };
+module.exports = { MESSAGE, ERROR, GAME, RESULT };
