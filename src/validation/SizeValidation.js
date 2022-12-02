@@ -1,5 +1,5 @@
 const SizeError = require('../error/SizeError');
-const { ERROR } = require('../constant/Constants');
+const { ERROR, GAME } = require('../constant/Constants');
 
 const SizeValidation = {
   validateSizeInput(sizeInput) {
@@ -11,6 +11,12 @@ const SizeValidation = {
 
     if (!regex.test(sizeInput)) {
       throw new SizeError(ERROR.NOT_ONLY_NUMBER);
+    }
+  },
+
+  checkStartWithZero(sizeInput) {
+    if (sizeInput[0] === GAME.STRING_ZERO) {
+      throw new SizeError(ERROR.DONT_START_ZERO);
     }
   },
 };
