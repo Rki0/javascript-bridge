@@ -3,6 +3,7 @@ const Game = require('./controller/Game');
 class App {
   play() {
     const game = new Game();
+    game.start();
   }
 }
 
