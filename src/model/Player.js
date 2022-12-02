@@ -35,6 +35,10 @@ class Player {
       this.#bridgeState[GAME.LOWER_BRIDGE_NUMBER].push(RESULT.NOT_CHOICED);
     }
   }
+
+  getBridgeState() {
+    return this.#bridgeState;
+  }
 }
 
 module.exports = Player;

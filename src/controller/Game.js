@@ -48,6 +48,9 @@ class Game {
 
     const player = new Player();
     player.updateBridgeState(moving, correctMoving);
+    const bridgeState = player.getBridgeState();
+
+    OutputView.printMap(bridgeState);
   }
 }
 
