@@ -1,4 +1,4 @@
-const BridgeMaker = require('../src/model/BridgeMaker');
+const BridgeMaker = require('../src/BridgeMaker');
 
 describe('건널 수 있는 칸 생성 테스트', () => {
   test('다리 생성 테스트', () => {
