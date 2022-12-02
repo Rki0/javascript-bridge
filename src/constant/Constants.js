@@ -2,6 +2,9 @@ const GAME = Object.freeze({
   STRING_ZERO: '0',
   MINIMUM_RANGE: 3,
   MAXIMUM_RANGE: 20,
+  LOWER_BRIDGE_NUMBER: 0,
+  LOWER_BRIDGE_STRING: 'D',
+  UPPER_BRIDGE_STRING: 'U',
 });
 
 const MESSAGE = Object.freeze({
