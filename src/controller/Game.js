@@ -18,11 +18,18 @@ class Game {
       SizeValidation.validateSizeInput(sizeInput);
       const size = Number(sizeInput);
       const canWalkBridge = BridgeMaker.makeBridge(size, generator);
+      this.getMoving();
     } catch (err) {
       OutputView.printError(err.message);
       this.start();
     }
   }
+
+  getMoving() {
+    InputView.readMoving(this.handleMoving.bind(this));
+  }
+
+  handleMoving(moving) {}
 }
 
 module.exports = Game;
