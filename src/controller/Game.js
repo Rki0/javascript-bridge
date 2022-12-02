@@ -1,9 +1,10 @@
 const OutputView = require('../view/OutputView');
 const InputView = require('../view/InputView');
 const SizeValidation = require('../validation/SizeValidation');
-const BridgeMaker = require('../model/BridgeMaker');
+const BridgeMaker = require('../BridgeMaker');
 const generator = require('../BridgeRandomNumberGenerator').generate;
 const MovingValidation = require('../validation/MovingValidation');
+const BridgeGame = require('./BridgeGame');
 
 class Game {
   constructor() {
@@ -18,7 +19,7 @@ class Game {
     try {
       SizeValidation.validateSizeInput(sizeInput);
       const size = Number(sizeInput);
-      const canWalkBridge = BridgeMaker.makeBridge(size, generator);
+      this.canWalkBridge = BridgeMaker.makeBridge(size, generator);
       this.getMoving();
     } catch (err) {
       OutputView.printError(err.message);
@@ -33,6 +34,8 @@ class Game {
   handleMoving(moving) {
     try {
       MovingValidation.validateMoving(moving);
+      const bridgeGame = new BridgeGame();
+      const correctMoving = bridgeGame.move(this.canWalkBridge, moving);
     } catch (err) {
       OutputView.printError(err.messages);
       this.getMoving();
