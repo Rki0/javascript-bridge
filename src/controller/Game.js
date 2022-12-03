@@ -11,7 +11,6 @@ const CommandValidation = require('../validation/CommandValidation');
 class Game {
   constructor() {
     OutputView.printStart();
-    this.bridgeGame = new BridgeGame();
     this.player = new Player();
   }
 
@@ -46,7 +45,12 @@ class Game {
   }
 
   calculateMoving(moving) {
-    const correctMoving = this.bridgeGame.move(this.canWalkBridge, moving);
+    const currentBridge = this.player.getCurrentBridge();
+    const correctMoving = BridgeGame.move(
+      this.canWalkBridge,
+      moving,
+      currentBridge,
+    );
 
     this.player.updateBridgeState(moving, correctMoving);
     const bridgeState = this.player.getBridgeState();
@@ -58,8 +62,11 @@ class Game {
     }
 
     if (bridgeState.length === this.size) {
+      this.player.updateGameSuccess();
+      OutputView.printResult();
     }
 
+    this.player.updateCurrentBridge();
     this.getMoving();
   }
 
@@ -70,12 +77,13 @@ class Game {
   handleCommand(command) {
     try {
       CommandValidation.validateCommand(command);
-      const isRestart = this.bridgeGame.retry(command);
+      const isRestart = BridgeGame.retry(command);
 
       if (!isRestart) {
         return OutputView.printResult();
       }
 
+      this.player.resetState();
       this.getMoving();
     } catch (err) {
       OutputView.printError(err.message);

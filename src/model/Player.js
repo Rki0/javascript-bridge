@@ -3,8 +3,14 @@ const { GAME, RESULT } = require('../constant/Constants');
 class Player {
   #bridgeState;
 
+  #currentBridge;
+
+  #gameSuccess;
+
   constructor() {
     this.#bridgeState = [[], []];
+    this.#currentBridge = 0;
+    this.#gameSuccess = false;
   }
 
   updateBridgeState(moving, correct) {
@@ -38,6 +44,23 @@ class Player {
 
   getBridgeState() {
     return this.#bridgeState;
+  }
+
+  getCurrentBridge() {
+    return this.#currentBridge;
+  }
+
+  updateCurrentBridge() {
+    this.#currentBridge += 1;
+  }
+
+  updateGameSuccess() {
+    this.#gameSuccess = true;
+  }
+
+  resetState() {
+    this.#bridgeState = [[], []];
+    this.#currentBridge = 0;
   }
 }
 
