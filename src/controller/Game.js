@@ -48,7 +48,7 @@ class Game {
       MovingValidation.validateMoving(moving);
       this.calculateMoving(moving);
     } catch (err) {
-      OutputView.printError(err.messages);
+      OutputView.printError(err.message);
       this.getMoving();
     }
   }
