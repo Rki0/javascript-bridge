@@ -20,6 +20,7 @@ class Game {
 
   handleBridgeSize(sizeInput) {
     try {
+      OutputView.printEmpty();
       SizeValidation.validateSizeInput(sizeInput);
       this.size = Number(sizeInput);
       this.canWalkBridge = BridgeMaker.makeBridge(this.size, generator);
@@ -53,9 +54,9 @@ class Game {
     );
 
     this.player.updateBridgeState(moving, correctMoving);
-    const bridgeState = this.player.getBridgeState();
+    this.bridgeState = this.player.getBridgeState();
 
-    OutputView.printMap(bridgeState);
+    OutputView.printMap(this.bridgeState);
 
     if (!correctMoving) {
       return this.getCommand();
@@ -66,7 +67,7 @@ class Game {
       const gameSuccess = this.player.getGameSuccess();
       const tryingCount = this.player.getTryingCount();
 
-      return OutputView.printResult(bridgeState, gameSuccess, tryingCount);
+      return OutputView.printResult(this.bridgeState, gameSuccess, tryingCount);
     }
 
     this.player.updateCurrentBridge();
@@ -83,7 +84,14 @@ class Game {
       const isRestart = BridgeGame.retry(command);
 
       if (!isRestart) {
-        return OutputView.printResult();
+        const gameSuccess = this.player.getGameSuccess();
+        const tryingCount = this.player.getTryingCount();
+
+        return OutputView.printResult(
+          this.bridgeState,
+          gameSuccess,
+          tryingCount,
+        );
       }
 
       this.player.resetState();
