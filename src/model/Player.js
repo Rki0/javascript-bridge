@@ -7,10 +7,13 @@ class Player {
 
   #gameSuccess;
 
+  #tryingCount;
+
   constructor() {
     this.#bridgeState = [[], []];
     this.#currentBridge = 1;
     this.#gameSuccess = false;
+    this.#tryingCount = 1;
   }
 
   updateBridgeState(moving, correct) {
@@ -50,6 +53,14 @@ class Player {
     return this.#currentBridge;
   }
 
+  getGameSuccess() {
+    return this.#gameSuccess;
+  }
+
+  getTryingCount() {
+    return this.#tryingCount;
+  }
+
   updateCurrentBridge() {
     this.#currentBridge += 1;
   }
@@ -61,6 +72,7 @@ class Player {
   resetState() {
     this.#bridgeState = [[], []];
     this.#currentBridge = 1;
+    this.#tryingCount += 1;
   }
 }
 

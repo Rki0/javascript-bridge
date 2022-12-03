@@ -63,8 +63,10 @@ class Game {
 
     if (currentBridge === this.size) {
       this.player.updateGameSuccess();
+      const gameSuccess = this.player.getGameSuccess();
+      const tryingCount = this.player.getTryingCount();
 
-      return OutputView.printResult();
+      return OutputView.printResult(bridgeState, gameSuccess, tryingCount);
     }
 
     this.player.updateCurrentBridge();

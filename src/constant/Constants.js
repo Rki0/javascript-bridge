@@ -23,6 +23,9 @@ const MESSAGE = Object.freeze({
   ASK_MOVING: `이동할 칸을 선택해주세요. (위: ${GAME.UPPER_BRIDGE_STRING}, 아래: ${GAME.LOWER_BRIDGE_STRING})\n`,
   SHOW_BRIDGE: (state) => `[${state.join(RESULT.SEPARATOR)}]`,
   ASK_RESTART_OR_QUIT: `게임을 다시 시도할지 여부를 입력해주세요. (재시도: ${GAME.RESTART_COMMAND}, 종료: ${GAME.QUIT_COMMAND})\n`,
+  NOTIFY_RESULT: '최종 게임 결과\n',
+  SHOW_SUCCESS: (success) => `게임 성공 여부: ${success ? '성공' : '실패'}`,
+  SHOW_TRYING_COUNT: (count) => `총 시도한 횟수: ${count}`,
 });
 
 const ERROR = Object.freeze({
