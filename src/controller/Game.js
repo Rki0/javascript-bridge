@@ -53,16 +53,14 @@ class Game {
 
     OutputView.printMap(bridgeState);
 
-    if (correctMoving && bridgeState.length !== this.size) {
-      this.getMoving();
-    }
-
-    if (correctMoving && bridgeState.length === this.size) {
-    }
-
     if (!correctMoving) {
-      this.getCommand();
+      return this.getCommand();
     }
+
+    if (bridgeState.length === this.size) {
+    }
+
+    this.getMoving();
   }
 
   getCommand() {
@@ -72,6 +70,13 @@ class Game {
   handleCommand(command) {
     try {
       CommandValidation.validateCommand(command);
+      const isRestart = this.bridgeGame.retry(command);
+
+      if (!isRestart) {
+        return OutputView.printResult();
+      }
+
+      this.getMoving();
     } catch (err) {
       OutputView.printError(err.message);
     }
