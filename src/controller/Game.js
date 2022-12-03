@@ -10,6 +10,8 @@ const Player = require('../model/Player');
 class Game {
   constructor() {
     OutputView.printStart();
+    this.bridgeGame = new BridgeGame();
+    this.player = new Player();
   }
 
   start() {
@@ -19,8 +21,8 @@ class Game {
   handleBridgeSize(sizeInput) {
     try {
       SizeValidation.validateSizeInput(sizeInput);
-      const size = Number(sizeInput);
-      this.canWalkBridge = BridgeMaker.makeBridge(size, generator);
+      this.size = Number(sizeInput);
+      this.canWalkBridge = BridgeMaker.makeBridge(this.size, generator);
       this.getMoving();
     } catch (err) {
       OutputView.printError(err.message);
@@ -43,14 +45,19 @@ class Game {
   }
 
   calculateMoving(moving) {
-    const bridgeGame = new BridgeGame();
-    const correctMoving = bridgeGame.move(this.canWalkBridge, moving);
+    const correctMoving = this.bridgeGame.move(this.canWalkBridge, moving);
 
-    const player = new Player();
-    player.updateBridgeState(moving, correctMoving);
-    const bridgeState = player.getBridgeState();
+    this.player.updateBridgeState(moving, correctMoving);
+    const bridgeState = this.player.getBridgeState();
 
     OutputView.printMap(bridgeState);
+
+    if (correctMoving && bridgeState.length !== this.size) {
+      this.getMoving();
+    }
+
+    if (correctMoving && bridgeState.length === this.size) {
+    }
   }
 }
 
