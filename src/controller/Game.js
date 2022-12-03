@@ -61,9 +61,10 @@ class Game {
       return this.getCommand();
     }
 
-    if (bridgeState.length === this.size) {
+    if (currentBridge === this.size) {
       this.player.updateGameSuccess();
-      OutputView.printResult();
+
+      return OutputView.printResult();
     }
 
     this.player.updateCurrentBridge();
@@ -87,6 +88,7 @@ class Game {
       this.getMoving();
     } catch (err) {
       OutputView.printError(err.message);
+      this.getCommand();
     }
   }
 }
