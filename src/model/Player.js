@@ -9,7 +9,7 @@ class Player {
 
   constructor() {
     this.#bridgeState = [[], []];
-    this.#currentBridge = 0;
+    this.#currentBridge = 1;
     this.#gameSuccess = false;
   }
 
@@ -60,7 +60,7 @@ class Player {
 
   resetState() {
     this.#bridgeState = [[], []];
-    this.#currentBridge = 0;
+    this.#currentBridge = 1;
   }
 }
 
