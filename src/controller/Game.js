@@ -48,9 +48,13 @@ class Game {
       MovingValidation.validateMoving(moving);
       this.calculateMoving(moving);
     } catch (err) {
-      OutputView.printError(err.message);
-      this.getMoving();
+      this.handleMovingError(err);
     }
+  }
+
+  handleMovingError(err) {
+    OutputView.printError(err.message);
+    this.getMoving();
   }
 
   calculateMoving(moving) {
@@ -108,9 +112,13 @@ class Game {
       CommandValidation.validateCommand(command);
       this.handleValidCommand(command);
     } catch (err) {
-      OutputView.printError(err.message);
-      this.getCommand();
+      this.handleCommandError(err);
     }
+  }
+
+  handleCommandError(err) {
+    OutputView.printError(err.message);
+    this.getCommand();
   }
 
   handleValidCommand(command) {
