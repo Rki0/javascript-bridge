@@ -27,6 +27,7 @@ const OutputView = {
     this.printMap(birdgeState);
     Console.print(MESSAGE.SHOW_SUCCESS(success));
     Console.print(MESSAGE.SHOW_TRYING_COUNT(count));
+    Console.close();
   },
 
   printStart() {
