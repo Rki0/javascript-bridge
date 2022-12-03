@@ -58,7 +58,17 @@ class Game {
 
     if (correctMoving && bridgeState.length === this.size) {
     }
+
+    if (!correctMoving) {
+      this.getCommand();
+    }
   }
+
+  getCommand() {
+    InputView.readGameCommand(this.handleCommand.bind(this));
+  }
+
+  handleCommand() {}
 }
 
 module.exports = Game;
