@@ -22,13 +22,21 @@ class Game {
     try {
       OutputView.printEmpty();
       SizeValidation.validateSizeInput(sizeInput);
-      this.size = Number(sizeInput);
-      this.canWalkBridge = BridgeMaker.makeBridge(this.size, generator);
-      this.getMoving();
+      this.handleValidSizeInput(sizeInput);
     } catch (err) {
-      OutputView.printError(err.message);
-      this.start();
+      this.handleSizeError(err);
     }
+  }
+
+  handleValidSizeInput(sizeInput) {
+    this.size = Number(sizeInput);
+    this.canWalkBridge = BridgeMaker.makeBridge(this.size, generator);
+    this.getMoving();
+  }
+
+  handleSizeError(err) {
+    OutputView.printError(err.message);
+    this.start();
   }
 
   getMoving() {
@@ -53,25 +61,42 @@ class Game {
       currentBridge,
     );
 
+    this.updateState(moving, correctMoving);
+    this.checkCorrectMoving(currentBridge, correctMoving);
+  }
+
+  updateState(moving, correctMoving) {
     this.player.updateBridgeState(moving, correctMoving);
     this.bridgeState = this.player.getBridgeState();
 
     OutputView.printMap(this.bridgeState);
+  }
 
+  checkCorrectMoving(currentBridge, correctMoving) {
     if (!correctMoving) {
       return this.getCommand();
     }
 
+    return this.checkGameSuccess(currentBridge);
+  }
+
+  checkGameSuccess(currentBridge) {
     if (currentBridge === this.size) {
       this.player.updateGameSuccess();
-      const gameSuccess = this.player.getGameSuccess();
-      const tryingCount = this.player.getTryingCount();
+      const { gameSuccess, tryingCount } = this.getGameState();
 
       return OutputView.printResult(this.bridgeState, gameSuccess, tryingCount);
     }
 
     this.player.updateCurrentBridge();
-    this.getMoving();
+    return this.getMoving();
+  }
+
+  getGameState() {
+    const gameSuccess = this.player.getGameSuccess();
+    const tryingCount = this.player.getTryingCount();
+
+    return { gameSuccess, tryingCount };
   }
 
   getCommand() {
@@ -81,25 +106,28 @@ class Game {
   handleCommand(command) {
     try {
       CommandValidation.validateCommand(command);
-      const isRestart = BridgeGame.retry(command);
-
-      if (!isRestart) {
-        const gameSuccess = this.player.getGameSuccess();
-        const tryingCount = this.player.getTryingCount();
-
-        return OutputView.printResult(
-          this.bridgeState,
-          gameSuccess,
-          tryingCount,
-        );
-      }
-
-      this.player.resetState();
-      this.getMoving();
+      this.handleValidCommand(command);
     } catch (err) {
       OutputView.printError(err.message);
       this.getCommand();
     }
+  }
+
+  handleValidCommand(command) {
+    const isRestart = BridgeGame.retry(command);
+
+    this.checkRestart(isRestart);
+  }
+
+  checkRestart(isRestart) {
+    if (!isRestart) {
+      const { gameSuccess, tryingCount } = this.getGameState();
+
+      return OutputView.printResult(this.bridgeState, gameSuccess, tryingCount);
+    }
+
+    this.player.resetState();
+    return this.getMoving();
   }
 }
 
