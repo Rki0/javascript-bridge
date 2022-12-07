@@ -20,12 +20,17 @@ class Game {
       const bridgeSize = new BridgeSize(sizeInput);
       const size = bridgeSize.getBridgeSize();
       this.canWalkBridge = BridgeMaker.makeBridge(size, generate);
-      this.askMoving();
+      this.startMoving();
     } catch (err) {
       OutputView.printError(err.message);
       this.start();
     }
   };
+
+  startMoving() {
+    this.player = new Player();
+    this.askMoving();
+  }
 
   askMoving() {
     InputView.readMoving(this.handleMoving);
@@ -33,12 +38,11 @@ class Game {
 
   handleMoving = (moving) => {
     try {
-      const currentIndex = Player.getCurrentIndex();
+      const currentIndex = this.player.getCurrentIndex();
       const bridgeGame = new BridgeGame();
       const canMove = bridgeGame.move(this.canWalkBridge, currentIndex, moving);
 
-      Player.increaseCurrentIndex();
-      Player.calculateProperty(moving, canMove);
+      this.player.calculateProperty(moving, canMove);
       this.askMoving();
     } catch (err) {
       OutputView.printError(err.message);
