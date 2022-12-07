@@ -57,8 +57,8 @@ class Game {
 
   manipulateMoving(moving, canMove) {
     this.player.calculateProperty(moving, canMove);
-    const bridgeState = this.player.getBridgeState();
-    OutputView.printMap(bridgeState);
+    this.bridgeState = this.player.getBridgeState();
+    OutputView.printMap(this.bridgeState);
   }
 
   checkCorrectMoving(canMove) {
@@ -74,12 +74,26 @@ class Game {
   }
 
   handleCommand = (command) => {
-    const bridgeGame = new BridgeGame();
-    const isRestart = bridgeGame.retry(command);
+    try {
+      const bridgeGame = new BridgeGame();
+      const isRestart = bridgeGame.retry(command);
+      this.checkRestart(isRestart);
+    } catch (err) {
+      OutputView.printError(err.message);
+      this.askRestart();
+    }
+  };
+
+  checkRestart(isRestart) {
+    if (!isRestart) {
+      const isSuccess = this.player.getGameSuccess();
+      const tryingCount = this.player.getTryingCount();
+      return OutputView.printResult(this.bridgeState, isSuccess, tryingCount);
+    }
 
     this.player.restart();
-    this.askMoving();
-  };
+    return this.askMoving();
+  }
 }
 
 module.exports = Game;

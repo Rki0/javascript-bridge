@@ -7,10 +7,13 @@ class Player {
 
   #tryingCount;
 
+  #gameSuccess;
+
   constructor() {
     this.#currentIndex = 0;
     this.#bridgeState = [[], []];
     this.#tryingCount = 1;
+    this.#gameSuccess = false;
   }
 
   getCurrentIndex() {
@@ -19,6 +22,14 @@ class Player {
 
   getBridgeState() {
     return this.#bridgeState;
+  }
+
+  getTryingCount() {
+    return this.#tryingCount;
+  }
+
+  getGameSuccess() {
+    return this.#gameSuccess;
   }
 
   increaseCurrentIndex() {
