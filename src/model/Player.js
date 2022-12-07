@@ -32,13 +32,19 @@ class Player {
     return this.#gameSuccess;
   }
 
+  updateGameSuccess(size) {
+    if (this.#currentIndex === size) {
+      this.#gameSuccess = true;
+    }
+  }
+
   increaseCurrentIndex() {
     this.#currentIndex += 1;
   }
 
   calculateProperty(moving, canMove) {
     const choicedBridge = this.calculateChoicedBridge(moving);
-    const notChoicedBridge = this.calculateNotChoidedBridge(moving);
+    const notChoicedBridge = this.calculateNotChoicedBridge(moving);
     const answer = this.checkCorrectMoving(canMove);
 
     this.updateBridgeState(choicedBridge, notChoicedBridge, answer);
@@ -53,7 +59,7 @@ class Player {
     return GAME.LOWER_BRIDGE_INDEX;
   }
 
-  calculateNotChoidedBridge(moving) {
+  calculateNotChoicedBridge(moving) {
     if (moving === GAME.LOWER_BRIDGE_STRING) {
       return GAME.UPPER_BRIDGE_INDEX;
     }

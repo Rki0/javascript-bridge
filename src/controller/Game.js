@@ -18,8 +18,8 @@ class Game {
   handleBridgeSize = (sizeInput) => {
     try {
       const bridgeSize = new BridgeSize(sizeInput);
-      const size = bridgeSize.getBridgeSize();
-      this.canWalkBridge = BridgeMaker.makeBridge(size, generate);
+      this.size = bridgeSize.getBridgeSize();
+      this.canWalkBridge = BridgeMaker.makeBridge(this.size, generate);
       this.startMoving();
     } catch (err) {
       OutputView.printError(err.message);
@@ -66,7 +66,19 @@ class Game {
       return this.askRestart();
     }
 
-    return this.askMoving();
+    return this.checkGameSuccess();
+  }
+
+  checkGameSuccess() {
+    this.player.updateGameSuccess(this.size);
+    const isSuccess = this.player.getGameSuccess();
+    const tryingCount = this.player.getTryingCount();
+
+    if (!isSuccess) {
+      return this.askMoving();
+    }
+
+    return OutputView.printResult(this.bridgeState, isSuccess, tryingCount);
   }
 
   askRestart() {
