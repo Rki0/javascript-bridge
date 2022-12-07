@@ -11,9 +11,9 @@ const BridgeMaker = {
    */
   makeBridge(size, generateRandomNumber) {
     const bridge = Array.from({ length: size }, () => {
-      return generateRandomNumber()
-        ? GAME.UPPER_BRIDGE_STRING
-        : GAME.LOWER_BRIDGE_STRING;
+      return generateRandomNumber() === 0
+        ? GAME.LOWER_BRIDGE_STRING
+        : GAME.UPPER_BRIDGE_STRING;
     });
 
     return bridge;
