@@ -3,4 +3,8 @@ const MESSAGE = Object.freeze({
   ASK_BRIDGE_LENGTH: '다리의 길이를 입력해주세요.\n',
 });
 
-module.exports = { MESSAGE };
+const ERROR = Object.freeze({
+  NOT_ONLY_NUMBER: '[ERROR] 숫자만 입력할 수 있습니다.',
+});
+
+module.exports = { MESSAGE, ERROR };
