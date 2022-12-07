@@ -23,6 +23,12 @@ class Game {
       this.start();
     }
   };
+
+  askMoving() {
+    InputView.readMoving(this.handleMoving);
+  }
+
+  handleMoving = (moving) => {};
 }
 
 module.exports = Game;
