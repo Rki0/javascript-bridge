@@ -4,6 +4,11 @@ const GAME = Object.freeze({
   MAXIMUM_RANGE: 20,
   LOWER_BRIDGE_STRING: 'D',
   UPPER_BRIDGE_STRING: 'U',
+  LOWER_BRIDGE_INDEX: 0,
+  UPPER_BRIDGE_INDEX: 1,
+  CORRECT_MOVING: 'O',
+  WRONG_MOVING: 'X',
+  NOT_CHOICED: ' ',
 });
 
 const MESSAGE = Object.freeze({

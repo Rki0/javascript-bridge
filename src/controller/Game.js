@@ -32,9 +32,18 @@ class Game {
   }
 
   handleMoving = (moving) => {
-    const currentIndex = Player.getCurrentIndex();
-    const bridgeGame = new BridgeGame();
-    const canMove = bridgeGame.move(this.canWalkBridge, currentIndex, moving);
+    try {
+      const currentIndex = Player.getCurrentIndex();
+      const bridgeGame = new BridgeGame();
+      const canMove = bridgeGame.move(this.canWalkBridge, currentIndex, moving);
+
+      Player.increaseCurrentIndex();
+      Player.calculateProperty(moving, canMove);
+      this.askMoving();
+    } catch (err) {
+      OutputView.printError(err.message);
+      this.askMoving();
+    }
   };
 }
 
