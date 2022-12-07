@@ -44,6 +44,8 @@ class Game {
 
       this.player.calculateProperty(moving, canMove);
       this.askMoving();
+      const bridgeState = this.player.getBridgeState();
+      OutputView.printMap(bridgeState);
     } catch (err) {
       OutputView.printError(err.message);
       this.askMoving();

@@ -14,6 +14,10 @@ class Player {
     return this.#currentIndex;
   }
 
+  getBridgeState() {
+    return this.#bridgeState;
+  }
+
   increaseCurrentIndex() {
     this.#currentIndex += 1;
   }
