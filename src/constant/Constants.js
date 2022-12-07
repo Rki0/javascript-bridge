@@ -10,13 +10,16 @@ const GAME = Object.freeze({
   WRONG_MOVING: ' X ',
   NOT_CHOICED: '   ',
   BRIDGE_SEPARATOR: '|',
+  RESTART_COMMND: 'R',
+  QUIT_COMMAND: 'Q',
 });
 
 const MESSAGE = Object.freeze({
   NOTIFY_START: '다리 건너기 게임을 시작합니다.\n',
   ASK_BRIDGE_LENGTH: '다리의 길이를 입력해주세요.\n',
-  ASK_WHERE_WANT_TO_GO: '이동할 칸을 선택해주세요. (위: U, 아래: D)\n',
+  ASK_WHERE_WANT_TO_GO: `이동할 칸을 선택해주세요. (위: ${GAME.UPPER_BRIDGE_STRING}, 아래: ${GAME.LOWER_BRIDGE_STRING})\n`,
   BRIDGE_STATE: (bridge) => `[${bridge.join(GAME.BRIDGE_SEPARATOR)}]`,
+  ASK_RESTART: `게임을 다시 시도할지 여부를 입력해주세요. (재시도: ${GAME.RESTART_COMMND}, 종료: ${GAME.QUIT_COMMAND})\n`,
 });
 
 const ERROR = Object.freeze({

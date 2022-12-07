@@ -43,14 +43,25 @@ class Game {
       const canMove = bridgeGame.move(this.canWalkBridge, currentIndex, moving);
 
       this.player.calculateProperty(moving, canMove);
-      this.askMoving();
       const bridgeState = this.player.getBridgeState();
       OutputView.printMap(bridgeState);
+
+      if (!canMove) {
+        return this.askRestart();
+      }
+
+      this.askMoving();
     } catch (err) {
       OutputView.printError(err.message);
       this.askMoving();
     }
   };
+
+  askRestart() {
+    InputView.readGameCommand(this.handleCommand);
+  }
+
+  handleCommand = (command) => {};
 }
 
 module.exports = Game;
