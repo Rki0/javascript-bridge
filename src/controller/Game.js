@@ -1,6 +1,8 @@
 const OutputView = require('../view/OutputView');
 const InputView = require('../view/InputView');
 const BridgeSize = require('../model/BridgeSize');
+const BridgeMaker = require('../BridgeMaker');
+const { generate } = require('../BridgeRandomNumberGenerator');
 
 class Game {
   constructor() {
@@ -15,6 +17,7 @@ class Game {
     try {
       const bridgeSize = new BridgeSize(sizeInput);
       const size = bridgeSize.getBridgeSize();
+      const canWalkBridge = BridgeMaker.makeBridge(size, generate);
     } catch (err) {
       OutputView.printError(err.message);
       this.start();
