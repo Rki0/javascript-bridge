@@ -38,24 +38,36 @@ class Game {
 
   handleMoving = (moving) => {
     try {
-      const currentIndex = this.player.getCurrentIndex();
-      const bridgeGame = new BridgeGame();
-      const canMove = bridgeGame.move(this.canWalkBridge, currentIndex, moving);
-
-      this.player.calculateProperty(moving, canMove);
-      const bridgeState = this.player.getBridgeState();
-      OutputView.printMap(bridgeState);
-
-      if (!canMove) {
-        return this.askRestart();
-      }
-
-      this.askMoving();
+      this.tryMoving(moving);
     } catch (err) {
       OutputView.printError(err.message);
       this.askMoving();
     }
   };
+
+  tryMoving(moving) {
+    const currentIndex = this.player.getCurrentIndex();
+    const bridgeGame = new BridgeGame();
+    const canMove = bridgeGame.move(this.canWalkBridge, currentIndex, moving);
+
+    this.manipulateMoving(moving, canMove);
+
+    this.checkCorrectMoving(canMove);
+  }
+
+  manipulateMoving(moving, canMove) {
+    this.player.calculateProperty(moving, canMove);
+    const bridgeState = this.player.getBridgeState();
+    OutputView.printMap(bridgeState);
+  }
+
+  checkCorrectMoving(canMove) {
+    if (!canMove) {
+      return this.askRestart();
+    }
+
+    return this.askMoving();
+  }
 
   askRestart() {
     InputView.readGameCommand(this.handleCommand);
