@@ -5,9 +5,12 @@ class Player {
 
   #bridgeState;
 
+  #tryingCount;
+
   constructor() {
     this.#currentIndex = 0;
     this.#bridgeState = [[], []];
+    this.#tryingCount = 1;
   }
 
   getCurrentIndex() {
@@ -58,6 +61,12 @@ class Player {
   updateBridgeState(choicedBridge, notChoicedBridge, answer) {
     this.#bridgeState[choicedBridge].push(answer);
     this.#bridgeState[notChoicedBridge].push(GAME.NOT_CHOICED);
+  }
+
+  restart() {
+    this.#bridgeState = [[], []];
+    this.#currentIndex = 0;
+    this.#tryingCount += 1;
   }
 }
 

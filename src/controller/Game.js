@@ -73,7 +73,13 @@ class Game {
     InputView.readGameCommand(this.handleCommand);
   }
 
-  handleCommand = (command) => {};
+  handleCommand = (command) => {
+    const bridgeGame = new BridgeGame();
+    const isRestart = bridgeGame.retry(command);
+
+    this.player.restart();
+    this.askMoving();
+  };
 }
 
 module.exports = Game;
