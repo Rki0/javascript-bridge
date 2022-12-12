@@ -18,11 +18,18 @@ class Game {
       const bridgeSize = new BridgeSize(sizeInput);
       const size = bridgeSize.getBridgeSize();
       const canWalkBridge = BridgeMaker.makeBridge(size, generate);
+      this.askMoving();
     } catch (err) {
       OutputView.printError(err.message);
       this.start();
     }
   };
+
+  askMoving() {
+    InputView.readMoving(this.handleMoving);
+  }
+
+  handleMoving = (moving) => {};
 }
 
 module.exports = Game;
