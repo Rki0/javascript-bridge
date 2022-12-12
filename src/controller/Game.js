@@ -4,6 +4,7 @@ const BridgeSize = require('../model/BridgeSize');
 const BridgeMaker = require('../BridgeMaker');
 const { generate } = require('../BridgeRandomNumberGenerator');
 const BridgeGame = require('../model/BridgeGame');
+const Player = require('../model/Player');
 
 class Game {
   constructor() {
@@ -18,7 +19,7 @@ class Game {
     try {
       const bridgeSize = new BridgeSize(sizeInput);
       const size = bridgeSize.getBridgeSize();
-      const canWalkBridge = BridgeMaker.makeBridge(size, generate);
+      this.canWalkBridge = BridgeMaker.makeBridge(size, generate);
       this.askMoving();
     } catch (err) {
       OutputView.printError(err.message);
@@ -32,8 +33,11 @@ class Game {
 
   handleMoving = (moving) => {
     try {
+      const player = new Player(this.canWalkBridge);
+      const currentBridge = player.getCurrentBridge();
+      player.updateMovingCount();
       const bridgeGame = new BridgeGame();
-      bridgeGame.move(moving);
+      const correctMoving = bridgeGame.move(moving, currentBridge);
     } catch (err) {
       OutputView.printError(err.message);
       this.askMoving();
