@@ -10,15 +10,13 @@ describe('모델 테스트', () => {
   });
 
   test('게임 진행 모델 테스트', () => {
-    const bridgeGame = new BridgeGame();
+    expect(BridgeGame.move('U', 'U')).toBeTruthy();
 
-    expect(bridgeGame.move('U', 'U')).toBeTruthy();
+    expect(BridgeGame.move('U', 'D')).toBeFalsy();
 
-    expect(bridgeGame.move('U', 'D')).toBeFalsy();
+    expect(BridgeGame.retry('R')).toBeTruthy();
 
-    expect(bridgeGame.retry('R')).toBeTruthy();
-
-    expect(bridgeGame.retry('Q')).toBeFalsy();
+    expect(BridgeGame.retry('Q')).toBeFalsy();
   });
 
   test('사용자 모델 테스트', () => {

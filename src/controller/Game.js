@@ -17,6 +17,7 @@ class Game {
 
   handleBridgeSize = (sizeInput) => {
     try {
+      OutputView.printEmpty();
       const bridgeSize = new BridgeSize(sizeInput);
       const size = bridgeSize.getBridgeSize();
       this.handleValidSizeInput(size);
@@ -45,8 +46,7 @@ class Game {
     try {
       const currentBridge = this.player.getCurrentBridge();
       this.player.updateMovingCount();
-      const bridgeGame = new BridgeGame();
-      const isCorrectMoving = bridgeGame.move(moving, currentBridge);
+      const isCorrectMoving = BridgeGame.move(moving, currentBridge);
       this.handleValidMovingInput(moving, isCorrectMoving);
     } catch (err) {
       this.handleMovingError(err);
@@ -91,8 +91,7 @@ class Game {
 
   handleCommand = (commandInput) => {
     try {
-      const bridgeGame = new BridgeGame();
-      const isRestart = bridgeGame.retry(commandInput);
+      const isRestart = BridgeGame.retry(commandInput);
       this.checkRestart(isRestart);
     } catch (err) {
       this.handleCommandError(err);
