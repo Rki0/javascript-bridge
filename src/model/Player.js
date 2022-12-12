@@ -7,6 +7,10 @@ class Player {
 
   #bridgeState;
 
+  #tryingCount;
+
+  #gameSuccess;
+
   constructor(bridge) {
     this.#movingCount = 0;
     this.#canWalkBridge = bridge;
@@ -14,6 +18,8 @@ class Player {
       lower: [],
       upper: [],
     };
+    this.#tryingCount = 1;
+    this.#gameSuccess = false;
   }
 
   updateMovingCount() {
@@ -29,6 +35,7 @@ class Player {
     const state = correct ? GAME.CORRECT_BRIDGE : GAME.WRONG_BRIDGE;
 
     this.updateEachBridge(isLowerBridge, state);
+    this.updateGameSuccess();
   }
 
   checkLowerBrige(moving) {
@@ -54,7 +61,25 @@ class Player {
     const lowerBridge = this.#bridgeState.lower.join(GAME.BRIDGE_SEPARATOR);
     const upperBridge = this.#bridgeState.upper.join(GAME.BRIDGE_SEPARATOR);
 
-    return { lowerBridge, upperBridge };
+    return [lowerBridge, upperBridge];
+  }
+
+  updateTryingCount() {
+    this.#tryingCount += 1;
+  }
+
+  getTryingCount() {
+    return this.#tryingCount;
+  }
+
+  updateGameSuccess() {
+    if (this.#movingCount === this.#canWalkBridge.length) {
+      this.#gameSuccess = true;
+    }
+  }
+
+  getGameSuccess() {
+    return this.#gameSuccess;
   }
 }
 

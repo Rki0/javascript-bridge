@@ -21,6 +21,8 @@ class Game {
       const bridgeSize = new BridgeSize(sizeInput);
       const size = bridgeSize.getBridgeSize();
       this.canWalkBridge = BridgeMaker.makeBridge(size, generate);
+
+      this.player = new Player(this.canWalkBridge);
       this.askMoving();
     } catch (err) {
       OutputView.printError(err.message);
@@ -34,17 +36,17 @@ class Game {
 
   handleMoving = (moving) => {
     try {
-      const player = new Player(this.canWalkBridge);
-      const currentBridge = player.getCurrentBridge();
-      player.updateMovingCount();
+      const currentBridge = this.player.getCurrentBridge();
+      this.player.updateMovingCount();
 
       const bridgeGame = new BridgeGame();
       const isCorrectMoving = bridgeGame.move(moving, currentBridge);
 
-      player.updateBridgeState(moving, isCorrectMoving);
-      const { lowerBridge, upperBridge } = player.getBridgeState();
+      this.player.updateBridgeState(moving, isCorrectMoving);
+      this.bridgeState = this.player.getBridgeState();
+      this.isSuccess = this.player.getGameSuccess();
 
-      OutputView.printMap(lowerBridge, upperBridge);
+      OutputView.printMap(this.bridgeState);
 
       if (!isCorrectMoving) {
         this.askCommand();
@@ -61,7 +63,13 @@ class Game {
 
   handleCommand = (commandInput) => {
     try {
-      const command = new Command(commandInput);
+      const bridgeGame = new BridgeGame();
+      const isRestart = bridgeGame.retry(commandInput);
+
+      if (!isRestart) {
+        const tryingCount = this.player.getTryingCount();
+        OutputView.printResult(this.bridgeState, this.isSuccess, tryingCount);
+      }
     } catch (err) {
       OutputView.printError(err.message);
       this.askCommand();
