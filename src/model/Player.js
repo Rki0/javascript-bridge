@@ -85,6 +85,7 @@ class Player {
       upper: [],
     };
     this.#tryingCount += 1;
+    this.#gameSuccess = false;
   }
 }
 
