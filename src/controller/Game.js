@@ -1,5 +1,6 @@
 const OutputView = require('../view/OutputView');
 const InputView = require('../view/InputView');
+const BridgeSize = require('../model/BridgeSize');
 
 class Game {
   constructor() {
@@ -10,7 +11,14 @@ class Game {
     InputView.readBridgeSize(this.handleBridgeSize);
   }
 
-  handleBridgeSize = (sizeInput) => {};
+  handleBridgeSize = (sizeInput) => {
+    try {
+      const bridgeSize = new BridgeSize(sizeInput);
+    } catch (err) {
+      OutputView.printError(err.message);
+      this.start();
+    }
+  };
 }
 
 module.exports = Game;

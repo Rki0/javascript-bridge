@@ -22,6 +22,10 @@ const OutputView = {
   printStart() {
     Console.print(MESSAGE.NOTIFY_START);
   },
+
+  printError(errorMessage) {
+    Console.print(errorMessage);
+  },
 };
 
 module.exports = OutputView;
