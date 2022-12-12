@@ -5,7 +5,11 @@ class BridgeSize {
 
   constructor(sizeInput) {
     SizeValidation.validateSize(sizeInput);
-    this.#size = Number(sizeInput);
+    this.#size = sizeInput;
+  }
+
+  getBridgeSize() {
+    return Number(this.#size);
   }
 }
 
