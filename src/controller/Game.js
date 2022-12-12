@@ -66,10 +66,13 @@ class Game {
       const bridgeGame = new BridgeGame();
       const isRestart = bridgeGame.retry(commandInput);
 
-      if (!isRestart) {
-        const tryingCount = this.player.getTryingCount();
-        OutputView.printResult(this.bridgeState, this.isSuccess, tryingCount);
+      if (isRestart) {
+        this.player.reset();
+        return this.askMoving();
       }
+
+      const tryingCount = this.player.getTryingCount();
+      OutputView.printResult(this.bridgeState, this.isSuccess, tryingCount);
     } catch (err) {
       OutputView.printError(err.message);
       this.askCommand();

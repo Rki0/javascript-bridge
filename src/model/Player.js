@@ -64,10 +64,6 @@ class Player {
     return [lowerBridge, upperBridge];
   }
 
-  updateTryingCount() {
-    this.#tryingCount += 1;
-  }
-
   getTryingCount() {
     return this.#tryingCount;
   }
@@ -80,6 +76,15 @@ class Player {
 
   getGameSuccess() {
     return this.#gameSuccess;
+  }
+
+  reset() {
+    this.#movingCount = 0;
+    this.#bridgeState = {
+      lower: [],
+      upper: [],
+    };
+    this.#tryingCount += 1;
   }
 }
 
