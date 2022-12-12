@@ -3,6 +3,7 @@ const InputView = require('../view/InputView');
 const BridgeSize = require('../model/BridgeSize');
 const BridgeMaker = require('../BridgeMaker');
 const { generate } = require('../BridgeRandomNumberGenerator');
+const BridgeGame = require('../model/BridgeGame');
 
 class Game {
   constructor() {
@@ -29,7 +30,15 @@ class Game {
     InputView.readMoving(this.handleMoving);
   }
 
-  handleMoving = (moving) => {};
+  handleMoving = (moving) => {
+    try {
+      const bridgeGame = new BridgeGame();
+      bridgeGame.move(moving);
+    } catch (err) {
+      OutputView.printError(err.message);
+      this.askMoving();
+    }
+  };
 }
 
 module.exports = Game;
