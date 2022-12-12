@@ -38,6 +38,9 @@ class Game {
       player.updateMovingCount();
       const bridgeGame = new BridgeGame();
       const correctMoving = bridgeGame.move(moving, currentBridge);
+      player.updateBridgeState(moving, correctMoving);
+      const { lowerBridge, upperBridge } = player.getBridgeState();
+      OutputView.printMap(lowerBridge, upperBridge);
     } catch (err) {
       OutputView.printError(err.message);
       this.askMoving();
