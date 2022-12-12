@@ -26,6 +26,7 @@ const ERROR = Object.freeze({
   DONT_START_WITH_ZERO: `[ERROR] ${GAME.STRING_ZERO}로 시작하는 숫자는 입력할 수 없습니다.\n`,
   OUT_OF_RANGE: `[ERROR] 다리 길이는 ${GAME.MINIMUM_RANGE}부터 ${GAME.MAXIMUM_RANGE} 사이의 숫자여야 합니다.\n`,
   NOT_VALID_MOVING: `[ERROR] ${GAME.LOWER_BRIDGE_STRING} 혹은 ${GAME.UPPER_BRIDGE_STRING}만 입력할 수 있습니다.\n`,
+  NOT_VALID_COMMAND: `[ERROR] ${GAME.RESTART_COMMAND} 혹은 ${GAME.QUIT_COMMAND}만 입력할 수 있습니다.\n`,
 });
 
 module.exports = { GAME, MESSAGE, ERROR };

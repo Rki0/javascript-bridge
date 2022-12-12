@@ -5,6 +5,7 @@ const BridgeMaker = require('../BridgeMaker');
 const { generate } = require('../BridgeRandomNumberGenerator');
 const BridgeGame = require('../model/BridgeGame');
 const Player = require('../model/Player');
+const Command = require('../model/Command');
 
 class Game {
   constructor() {
@@ -58,7 +59,14 @@ class Game {
     InputView.readGameCommand(this.handleCommand);
   }
 
-  handleCommand = (command) => {};
+  handleCommand = (commandInput) => {
+    try {
+      const command = new Command(commandInput);
+    } catch (err) {
+      OutputView.printError(err.message);
+      this.askCommand();
+    }
+  };
 }
 
 module.exports = Game;
