@@ -25,25 +25,29 @@ class Player {
   }
 
   updateBridgeState(moving, correct) {
-    if (moving === GAME.LOWER_BRIDGE_STRING && correct) {
-      this.#bridgeState.lower.push(GAME.CORRECT_BRIDGE);
-      this.#bridgeState.upper.push(GAME.NOT_CHOICED_BRIDGE);
+    const isLowerBridge = this.checkLowerBrige(moving);
+    const state = correct ? GAME.CORRECT_BRIDGE : GAME.WRONG_BRIDGE;
+
+    this.updateEachBridge(isLowerBridge, state);
+  }
+
+  checkLowerBrige(moving) {
+    if (moving !== GAME.LOWER_BRIDGE_STRING) {
+      return false;
     }
 
-    if (moving === GAME.LOWER_BRIDGE_STRING && !correct) {
-      this.#bridgeState.lower.push(GAME.WRONG_BRIDGE);
-      this.#bridgeState.upper.push(GAME.NOT_CHOICED_BRIDGE);
-    }
+    return true;
+  }
 
-    if (moving === GAME.UPPER_BRIDGE_STRING && correct) {
+  updateEachBridge(isLowerBridge, state) {
+    if (!isLowerBridge) {
       this.#bridgeState.lower.push(GAME.NOT_CHOICED_BRIDGE);
-      this.#bridgeState.upper.push(GAME.CORRECT_BRIDGE);
+      this.#bridgeState.upper.push(state);
+      return;
     }
 
-    if (moving === GAME.UPPER_BRIDGE_STRING && !correct) {
-      this.#bridgeState.lower.push(GAME.NOT_CHOICED_BRIDGE);
-      this.#bridgeState.upper.push(GAME.WRONG_BRIDGE);
-    }
+    this.#bridgeState.lower.push(state);
+    this.#bridgeState.upper.push(GAME.NOT_CHOICED_BRIDGE);
   }
 
   getBridgeState() {
