@@ -5,6 +5,7 @@ const SizeValidation = {
   validateSize(sizeInput) {
     this.checkOnlyNumber(sizeInput);
     this.checkStartWithZero(sizeInput);
+    this.checkRange(Number(sizeInput));
   },
 
   checkOnlyNumber(sizeInput) {
@@ -18,6 +19,12 @@ const SizeValidation = {
   checkStartWithZero(sizeInput) {
     if (sizeInput[0] === GAME.STRING_ZERO) {
       throw new SizeError(ERROR.DONT_START_WITH_ZERO);
+    }
+  },
+
+  checkRange(sizeInput) {
+    if (sizeInput < GAME.MINIMUM_RANGE || sizeInput > GAME.MAXIMUM_RANGE) {
+      throw new SizeError(ERROR.OUT_OF_RANGE);
     }
   },
 };
