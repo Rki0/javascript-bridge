@@ -36,16 +36,29 @@ class Game {
       const player = new Player(this.canWalkBridge);
       const currentBridge = player.getCurrentBridge();
       player.updateMovingCount();
+
       const bridgeGame = new BridgeGame();
-      const correctMoving = bridgeGame.move(moving, currentBridge);
-      player.updateBridgeState(moving, correctMoving);
+      const isCorrectMoving = bridgeGame.move(moving, currentBridge);
+
+      player.updateBridgeState(moving, isCorrectMoving);
       const { lowerBridge, upperBridge } = player.getBridgeState();
+
       OutputView.printMap(lowerBridge, upperBridge);
+
+      if (!isCorrectMoving) {
+        this.askCommand();
+      }
     } catch (err) {
       OutputView.printError(err.message);
       this.askMoving();
     }
   };
+
+  askCommand() {
+    InputView.readGameCommand(this.handleCommand);
+  }
+
+  handleCommand = (command) => {};
 }
 
 module.exports = Game;

@@ -9,6 +9,8 @@ const GAME = Object.freeze({
   WRONG_BRIDGE: ' X ',
   NOT_CHOICED_BRIDGE: '   ',
   BRIDGE_SEPARATOR: '|',
+  RESTART_COMMAND: 'R',
+  QUIT_COMMAND: 'Q',
 });
 
 const MESSAGE = Object.freeze({
@@ -16,6 +18,7 @@ const MESSAGE = Object.freeze({
   ASK_BRIDGE_SIZE: '다리의 길이를 입력해주세요.\n',
   ASK_WHERE_WANT_TO_GO: `이동할 칸을 선택해주세요. (위: ${GAME.UPPER_BRIDGE_STRING}, 아래: ${GAME.LOWER_BRIDGE_STRING})\n`,
   NOTIFY_BRIDGE_STATE: (state) => `[${state}]`,
+  ASK_GAME_COMMAND: `게임을 다시 시도할지 여부를 입력해주세요. (재시도: ${GAME.RESTART_COMMAND}, 종료: ${GAME.QUIT_COMMAND})\n`,
 });
 
 const ERROR = Object.freeze({
